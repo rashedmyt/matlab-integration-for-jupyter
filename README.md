@@ -1,7 +1,27 @@
 
 # MATLAB Integration *for Jupyter* Reference Architecture
 
-To run MATLAB&reg; in Jupyter&reg; inside a container, use the Dockerfile in this repository. The Dockerfile builds an image with [MATLAB Integration for Jupyter](https://github.com/mathworks/jupyter-matlab-proxy) (GitHub), based on a `jupyter/base-notebook:ubuntu-24.04` base image from [Jupyter Docker Stacks](https://github.com/jupyter/docker-stacks) (GitHub), which ships with Python 3.12. 
+To run MATLAB&reg; in Jupyter&reg; inside a container, use the [Dockerfile](./Dockerfile) in this repository, which builds an image with:
+ * [MATLAB Integration for Jupyter (GitHub)](https://github.com/mathworks/jupyter-matlab-proxy)
+ * [jupyter/base-notebook:ubuntu-24.04](https://github.com/jupyter/docker-stacks) base image
+ * Python&reg; 3.13
+
+## Run in GitHub Codespaces
+
+To run this container, click the button below to start a [GitHub Codespace](https://docs.github.com/en/codespaces/about-codespaces/what-are-codespaces) with a [pre-built image](#pre-built-images) for MATLAB R2025b.
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/mathworks-ref-arch/matlab-integration-for-jupyter?devcontainer_path=.devcontainer%2Fdevcontainer.json)
+
+To see details of what you can do with MATLAB in Visual Studio Code and JupyterLab, see [Use MATLAB in Codespaces](https://github.com/mathworks-ref-arch/matlab-codespaces?tab=readme-ov-file#use-matlab-in-codespaces).
+
+By default, Codespaces use Visual Studio Code. To use JupyterLab instead, click **Open in JupyterLab**, as shown below.
+
+<p align="left">
+    <img src="./resources/open-in-jupyterlab.png" alt="Open in JupyterLab" style="width: 60%;">
+</p>
+
+To enable single-click access to JupyterLab via Codespaces, see [Setting your default editor to JupyterLab (GitHub Docs*)](https://docs.github.com/en/enterprise-cloud@latest/codespaces/setting-your-user-preferences/setting-your-default-editor-for-github-codespaces#setting-your-default-editor).
+
 
 ## Build Instructions
 
@@ -44,7 +64,7 @@ The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/ma
 | [MATLAB_INSTALL_LOCATION](#build-an-image-with-matlab-installed-to-a-specific-location) | The path to install MATLAB. | /opt/matlab |
 | [LICENSE_SERVER](#build-an-image-configured-to-use-a-license-server) | The port and hostname of the machine that is running the Network License Manager, using the port@hostname syntax. For example: *27000@MyServerName* | *Unset* |
 | [INSTALL_MATLABENGINE](#build-an-image-with-the-matlab-engine-for-python) | Set this value to install the MATLAB Engine for Python into the image. | *Unset* |
-| [INSTALL_VNC](#build-an-image-with-the-matlab-integration-for-jupyter-using-vnc) | Set this value to install the [jupyter-matlab-vnc-proxy](https://github.com/mathworks/jupyter-matlab-vnc-proxy), which allows you to connect to a traditional MATLAB desktop via VNC.| *Unset* |
+| [INSTALL_VNC](#build-an-image-with-the-option-to-access-desktop-using-vnc) | Set this value to install the [Jupyter Remote Desktop Proxy](https://github.com/jupyterhub/jupyter-remote-desktop-proxy), which allows you to connect to a traditional desktop using VNC.| *Unset* |
 
 To customize your build, use these arguments with the `docker build` command. See these examples:
 
@@ -97,12 +117,12 @@ For more information, see:
 * The Dockerfile in this repository an image based on Python 3.11 and the MATLAB Engine for Python only supports this version from MATLAB R2023b onwards.
 * If the MATLAB Engine for Python fails to install, this will not fail the `docker build` command.
 
-#### Build an Image with the MATLAB Integration for Jupyter using VNC
-To build the default image along with the MATLAB Integration for Jupyter using VNC, run:
+#### Build an Image with the Option to Access Desktop Using VNC
+To build the default image along with the ability to access an XFCE Desktop using VNC, run:
 ```bash
 docker build --build-arg INSTALL_VNC=1 -t mifj:R2025a .
 ```
-For more information, see [MATLAB Integration for Jupyter using VNC*(GitHub)*](https://github.com/mathworks/jupyter-matlab-vnc-proxy).
+For more information, see [Jupyter Remote Desktop Proxy (GitHub)](https://github.com/jupyterhub/jupyter-remote-desktop-proxy).
 
 ## Installing MATLAB
 There are 3 ways to include MATLAB in your container image.
@@ -161,12 +181,12 @@ You can download several Docker images based on this Dockerfile from the GitHub 
 These images are based on `jupyter/base-notebook:ubuntu-24.04` and include:
 * MATLAB
 * MATLAB Integration for Jupyter
-* MATLAB Integration for Jupyter using VNC
+* Jupyter Remote Desktop Proxy to access a Desktop using VNC
 * MATLAB Engine for Python 
     * Only available in pre-built images newer than R2023b
     * See [Different Versions of OS or Python](#different-versions-of-os-or-python) for more information on installing the engine for older versions of MATLAB.
 
-**Available Tags**: `R2025a`, `R2024b`, `R2024a`, `R2023b`, `R2023a`, `R2022b`
+**Available Tags**: `R2025b`, `R2025a`, `R2024b`, `R2024a`, `R2023b`, `R2023a`, `R2022b`
 
 **Docker Pull Command**:
 ```bash
@@ -176,12 +196,12 @@ docker pull ghcr.io/mathworks-ref-arch/matlab-integration-for-jupyter/jupyter-ma
 ### jupyter-mounted-matlab-notebook
 These images are based on `jupyter/base-notebook:ubuntu-24.04` and include:
 * MATLAB Integration for Jupyter
-* MATLAB Integration for Jupyter using VNC
+* Jupyter Remote Desktop Proxy to access a Desktop using VNC
 * MATLAB Engine for Python 
     * Only available in pre-built images newer than R2023b
     * See [Compatibility for Different Versions of OS or Python](#compatibility-for-different-versions-of-os-or-python) for more information on installing the engine for older versions of MATLAB.
 
-**Available Tags**: `R2025a`, `R2024b`, `R2024a`, `R2023b`, `R2023a`, `R2022b`
+**Available Tags**: `R2025b`, `R2025a`, `R2024b`, `R2024a`, `R2023b`, `R2023a`, `R2022b`
 
 **Docker Pull Command**:
 ```bash
