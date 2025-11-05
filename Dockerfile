@@ -251,7 +251,7 @@ ENV MW_CONTEXT_TAGS=MATLAB_PROXY:JUPYTER:V1
 #  docker build -t mifj:mpm --build-arg LICENSE_SERVER=port@hostname .
 
 # 5. Mounted MATLAB
-#  docker build -t mifj:mpm  MOUNT_MATLAB=1 .
+#  docker build -t mifj:mpm  --build-arg MOUNT_MATLAB=1 .
 
-# 5. BYOI MATLAB Image, MATLAB_RELEASE is required to install the right dependencies
-#  docker build -t mifj:mpm  MATLAB_IMAGE_NAME=mathworks/matlab:r2024b MATLAB_RELEASE=R2024b .
+# 6. BYOI MATLAB Image, MATLAB_RELEASE is required to install the right dependencies
+#  docker build -t mifj:mpm --build-arg MATLAB_IMAGE_NAME=mathworks/matlab:r2024b MATLAB_RELEASE=R2024b .
