@@ -1,6 +1,6 @@
 {
-    "name": "MATLAB R2025b",
-    "image": "ghcr.io/prabhakk-mw/matlab-integration-for-jupyter/jupyter-matlab-notebook:r2025b",
+    "name": "MATLAB R2026a",
+    "image": "ghcr.io/mathworks-ref-arch/matlab-integration-for-jupyter/jupyter-matlab-notebook:r2026a",
     // Configure VSCode Extensions
     "customizations": {
         "vscode": {

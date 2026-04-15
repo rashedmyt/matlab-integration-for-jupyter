@@ -1,6 +1,6 @@
-# Copyright 2024-2025 The MathWorks, Inc.
+# Copyright 2024-2026 The MathWorks, Inc.
 # Dockerfile for the MATLAB Integration for Jupyter based on quay.io/jupyter/base-notebook
-# With Python Version : 3.12
+# With Python Version : 3.13
 ###############################################################################
 # This Dockerfile is divided into multiple stages, the behavior of each stage
 #         is based on the build time args.
@@ -17,7 +17,7 @@
 # Example docker build commands are available at the end of this file.
 
 ## Setup Build Arguments, to chain multi-stage build selection.
-ARG MATLAB_RELEASE=R2025b
+ARG MATLAB_RELEASE=R2026a
 
 # See https://mathworks.com/help/install/ug/mpminstall.html for product list specfication
 ARG MATLAB_PRODUCT_LIST="MATLAB"
@@ -187,6 +187,7 @@ RUN python -m pip install -U jupyter-matlab-proxy
 
 FROM base3-with-jmp AS base3-with-jmp-with-vnc
 RUN echo "Installing jupyter-remote-desktop-proxy ..."
+RUN python -m pip install -U jupyter-remote-desktop-proxy
 USER root
 
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get update \
@@ -203,13 +204,11 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update \
     # Disable the automatic screenlock since the account password is unknown
     && apt-get -y -qq remove xfce4-screensaver 
 
-# Pip install the latest version of the integration
 USER $NB_USER
 
 COPY --chown=$NB_UID:$NB_GID ./resources /home/${NB_USER}/matlab-resources
 # Move MATLAB resource files to the expected locations
-RUN python -m pip install -U jupyter-remote-desktop-proxy \
-    && export RESOURCES_LOC=/home/${NB_USER}/matlab-resources \
+RUN export RESOURCES_LOC=/home/${NB_USER}/matlab-resources \
     && mkdir -p ${HOME}/.local/share/applications ${HOME}/Desktop ${HOME}/.local/share/ ${HOME}/.icons \
     && cp ${RESOURCES_LOC}/MATLAB.desktop ${HOME}/Desktop/ \
     && cp ${RESOURCES_LOC}/MATLAB.desktop ${HOME}/.local/share/applications\

@@ -1,4 +1,4 @@
-# Copyright 2023 The MathWorks, Inc.
+# Copyright 2023-2026 The MathWorks, Inc.
 
 name: Build and Publish the Container Image
 
@@ -24,7 +24,7 @@ on:
         required: true
         type: string
       os_info_tag:
-        description: 'Allowed values: ubuntu20.04 ubuntu22.04'
+        description: 'Allowed values: ubuntu20.04 ubuntu22.04 ubuntu24.04'
         required: true
         type: string
       is_default_os:
