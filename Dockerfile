@@ -207,9 +207,10 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update \
 USER $NB_USER
 
 COPY --chown=$NB_UID:$NB_GID ./resources /home/${NB_USER}/matlab-resources
-# Move MATLAB resource files to the expected locations
+# Move MATLAB resource files to the expected locations. Also create Documents folder
+# as MATLAB will warn if it does not exist.
 RUN export RESOURCES_LOC=/home/${NB_USER}/matlab-resources \
-    && mkdir -p ${HOME}/.local/share/applications ${HOME}/Desktop ${HOME}/.local/share/ ${HOME}/.icons \
+    && mkdir -p ${HOME}/.local/share/applications ${HOME}/Desktop ${HOME}/Documents ${HOME}/.local/share/ ${HOME}/.icons \
     && cp ${RESOURCES_LOC}/MATLAB.desktop ${HOME}/Desktop/ \
     && cp ${RESOURCES_LOC}/MATLAB.desktop ${HOME}/.local/share/applications\
     && ln -s ${RESOURCES_LOC}/matlab_icon.png ${HOME}/.icons/matlab_icon.png
